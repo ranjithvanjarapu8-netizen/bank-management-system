@@ -54,6 +54,14 @@ public class AccServ {
 		return "SUMINTN"+next;
 		
 	}
+	public ResponseEntity<String> add_amnt(String accnumber,double amnt) {
+		
+		Optional<Account> acnt = accrep.findByAccNumber(accnumber);
+		if(acnt.isEmpty()) return new ResponseEntity<>("Account Not Found",HttpStatus.NOT_FOUND);
+		double amount = acnt.get().getBalance()+amnt;
+		acnt.get().setBalance(amount);
+		return new ResponseEntity<>("Amount Deposited Successfully",HttpStatus.ACCEPTED);
+	}
 	
 	
 }
