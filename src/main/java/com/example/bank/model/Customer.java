@@ -13,7 +13,9 @@ public class Customer {
 	private String email;
 	private String mobile;
 	private String address;
-	
+	public Customer() {
+		
+	}
 	public Customer(Integer customer_id, String name, String email, String mobile, String address) {
 		super();
 		this.customer_id = customer_id;
