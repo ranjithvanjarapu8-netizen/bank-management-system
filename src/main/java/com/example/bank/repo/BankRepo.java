@@ -11,5 +11,7 @@ import com.example.bank.model.Branch_Ifsc;
 public interface BankRepo extends JpaRepository<Branch_Ifsc,String>{
 	@Query("SELECT a.Ifsc FROM Branch_Ifsc AS a WHERE a.BranchName =:branchName")
 	String findbybankname(@Param("branchName")String branchName);
+	
+	
 
 }

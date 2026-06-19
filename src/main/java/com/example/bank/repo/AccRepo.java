@@ -1,5 +1,6 @@
 package com.example.bank.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +16,8 @@ public interface AccRepo extends JpaRepository<Account,Integer> {
 	String findMaxAccountNumber();
 	@Query("SELECT a FROM Account AS a WHERE a.accountNumber =:accnumber")
 	Optional<Account> findByAccNumber(@Param("accnumber") String accnumber);
+	
+	@Query("SELECT a FROM Account AS a WHERE a.customer.customer_id = :id")
+	List<Account> findAllByCustomerId(@Param("id") int id);
 
 }

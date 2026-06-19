@@ -3,6 +3,8 @@ package com.example.bank.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,10 +35,12 @@ public class Account {
     private String status; // ACTIVE, CLOSED, BLOCKED
     
     @OneToMany(mappedBy = "account",cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<Transaction> transactions;
     
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
     public Account() {
     }

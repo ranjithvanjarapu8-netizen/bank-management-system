@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,9 +27,18 @@ public class AccCtrl {
 		return acc_serv.add_acc(id,acc);
 	}
 	
-	@PutMapping("/{Accnumber}")
-	public ResponseEntity<String> add_amnt(@PathVariable String Accnumber,@RequestPart double amnt){
+	@PutMapping("/deposit")
+	public ResponseEntity<String> add_amnt(@RequestParam String Accnumber,@RequestParam double amnt){
 		return acc_serv.add_amnt(Accnumber,amnt);
+	}
+	@PutMapping("/credit")
+	public ResponseEntity<String> wd_amnt(@RequestParam String Accnumber,@RequestParam double amnt){
+		return acc_serv.wd_amnt(Accnumber,amnt);
+	}
+	@PutMapping("/transfer")
+	public ResponseEntity<String> Trsfr_amnt(@RequestParam String Accnumber1,
+												@RequestParam String Accnumber2,@RequestParam double amnt){
+		return acc_serv.trsfr_amnt(Accnumber1,Accnumber2,amnt);
 	}
 	
 }

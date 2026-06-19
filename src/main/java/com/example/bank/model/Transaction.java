@@ -2,6 +2,9 @@ package com.example.bank.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,19 +20,34 @@ public class Transaction {
     private Long transactionId;
 
     private String transactionType; // DEPOSIT, WITHDRAW, TRANSFER
-
+    
+    @Column(nullable = false)
+    private String transactionNumber;
+    
     private Double amount;
 
     private LocalDateTime transactionDate;
 
     private String description;
 
-    @ManyToOne
+    private double currentBalance;
+    
+
+	@ManyToOne
     @JoinColumn(name = "account_id")
+	@JsonIgnore
     private Account account;
     public Transaction() {
     	
-    }
+    }public Transaction(double currentBalance) {
+		super();
+		this.currentBalance = currentBalance;
+	}
+    
+	public Transaction(String transactionNumber) {
+		super();
+		this.transactionNumber = transactionNumber;
+	}
 	public Transaction(Long transactionId, String transactionType, Double amount, LocalDateTime transactionDate,
 			String description, Account account) {
 		super();
@@ -73,6 +91,12 @@ public class Transaction {
 		this.transactionDate = transactionDate;
 	}
 
+	public String getTransactionNumber() {
+		return transactionNumber;
+	}
+	public void setTransactionNumber(String transactionNumber) {
+		this.transactionNumber = transactionNumber;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -89,10 +113,17 @@ public class Transaction {
 		this.account = account;
 	}
 
+	public double getCurrentBalance() {
+		return currentBalance;
+	}
+	public void setCurrentBalance(double currentBalance) {
+		this.currentBalance = currentBalance;
+	}
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType + ", amount="
-				+ amount + ", transactionDate=" + transactionDate + ", description=" + description + ", account="
+		return "Transaction [transactionId=" + transactionId + ", transactionType=" + transactionType
+				+ ", transactionNumber=" + transactionNumber + ", amount=" + amount + ", transactionDate="
+				+ transactionDate + ", description=" + description + ", currentBalance=" + currentBalance + ", account="
 				+ account + "]";
 	}
 

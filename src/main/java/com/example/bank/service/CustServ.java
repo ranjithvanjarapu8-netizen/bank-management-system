@@ -38,6 +38,6 @@ public class CustServ {
 		
 	}
 	public ResponseEntity<List<Account>> getAll_acc(int id) {
-		return new ResponseEntity<>(accrep.findAll(),HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(accrep.findAllByCustomerId(id),HttpStatus.ACCEPTED);
 	}
 }
